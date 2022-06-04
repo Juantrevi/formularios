@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,11 +22,35 @@ public class FormController {
     @Autowired
     private UsuarioValidador validador;
 
+    @ModelAttribute("paises")
+    public List<String> paises(){
+        return Arrays.asList("Argentina", "Peru", "Bolivia", "Uruguay", "Chile");
+    }
+
+    @ModelAttribute("paisesMap")
+    public Map<String, String> paisesMap(){
+
+        Map<String, String> paises = new HashMap<>();
+        paises.put("ES", "España");
+        paises.put("MX", "Mexico");
+        paises.put("CL", "Chile");
+        paises.put("AR", "Argentina");
+        paises.put("PE", "Peru");
+
+        return paises;
+    }
+
     @GetMapping("/form")
     public String form(Model model){
 
         Usuario usuario = new Usuario();
         usuario.setNombre("Juan");
+        usuario.setApellido("Treviranus");
+        usuario.setEmail("juantrevo@gggff.com");
+        usuario.setUsername("ddd");
+        usuario.setPassword("123456");
+
+
         usuario.setIdentificador("321.125.445-K");
         model.addAttribute("titulo", "Formulario usuarios");
         model.addAttribute("usuario", usuario);
